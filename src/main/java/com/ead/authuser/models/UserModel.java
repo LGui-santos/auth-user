@@ -31,7 +31,7 @@ public class UserModel extends RepresentationModel<UserModel> implements Seriali
     @JsonIgnore
     private String password;
     @Column(nullable = false, length = 150)
-    private String fullname;
+    private String fullName;
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private UserStatus userStatus;
