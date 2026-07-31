@@ -22,6 +22,6 @@ public class UserCourseServiceImpl implements UserCourseService {
 
     @Override
     public UserCourseModel save(UserCourseModel userCourseModel) {
-        userCourseRepository.save(userCourseModel);
+        return userCourseRepository.save(userCourseModel);
     }
 }
