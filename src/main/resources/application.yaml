@@ -26,6 +26,9 @@ spring:
     ansi:
       enabled: Always
 
+  rabbitmq:
+    addresses: amqps://takilztr:DNmWXGQ5t2lPE5wF3F-UmmV_8Oz0fFAs@leopard.lmq.cloudamqp.com/takilztr
+
 logging:
   level:
     com.ead: TRACE
