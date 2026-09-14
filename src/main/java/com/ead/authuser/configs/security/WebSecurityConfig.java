@@ -2,6 +2,8 @@ package com.ead.authuser.configs.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.access.hierarchicalroles.RoleHierarchy;
+import org.springframework.security.access.hierarchicalroles.RoleHierarchyImpl;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
@@ -29,6 +31,15 @@ public class WebSecurityConfig {
     }
 
     @Bean
+    public RoleHierarchy roleHierarchy() {
+        return RoleHierarchyImpl.fromHierarchy("""
+                ROLE_ADMIN > ROLE_INSTRUCTOR
+                ROLE_INSTRUCTOR > ROLE_STUDENT
+                ROLE_STUDENT > ROLE_USER
+        """);
+    }
+
+    @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) {
         http
                 .exceptionHandling(exception -> exception
@@ -36,6 +47,7 @@ public class WebSecurityConfig {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(AUTH_WHITELIST).permitAll()
+                        .requestMatchers("/error").permitAll()
                         .anyRequest().authenticated())
                 .addFilterBefore(authenticationJwtFilter(), UsernamePasswordAuthenticationFilter.class)
                 .csrf(csrf -> csrf.disable());
