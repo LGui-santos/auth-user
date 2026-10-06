@@ -29,7 +29,6 @@ public class UserServiceImpl implements UserService {
         return userRepository.findById(userId);
     }
 
-    @Transactional
     @Override
     public void delete(UserModel userModel) {
         userRepository.delete(userModel);
@@ -63,6 +62,7 @@ public class UserServiceImpl implements UserService {
         return userModel;
     }
 
+    @Transactional
     @Override
     public void deleteUser(UserModel userModel) {
         delete(userModel);
